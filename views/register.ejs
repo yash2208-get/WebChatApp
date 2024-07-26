@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Register Form</title>
+  <link rel="stylesheet" href="../public/loginStyle/style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+    <section class="container">
+        <div class="login-container">
+            <div class="circle circle-one"></div>
+            <div class="form-container">
+                <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
+                <h1 class="opacity">Register Form</h1>
+                <form action="/register" method="POST" enctype="multipart/form-data">
+                  <input type="text" placeholder="USER NAME" name="username" required />
+                    <input type="email" placeholder="USER EMAIL" name="email" required />
+                    <input type="file" placeholder="USER file" name="image" required />
+                    <input type="password" placeholder="PASSWORD" name="password" required/>
+                    <button class="opacity" type="submit">SUBMIT</button>
+                </form>
+                <div class="register-forget opacity">
+                    <a href="/">LOGIN</a>
+                </div>
+            </div>
+            <div class="circle circle-two"></div>
+        </div>
+        <div class="theme-btn-container"></div>
+    </section>
+</body>
+<!-- partial -->
+  <script  src="../public/loginStyle/script.js"></script>
+
+</body>
+</html>
