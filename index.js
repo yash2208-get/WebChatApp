@@ -23,15 +23,15 @@ let usp = io.of('/users-dashboard');
 usp.on('connection', async (socket) => {
     console.log('A user connected');
     
-    // Handle chat messages
-    socket.on('chatMessage', (msg) => {
-        usp.emit('chatMessage', msg);
-    });
-
     // Update user status
     socket.broadcast.emit('users_status_online', { user_id: socket.handshake.auth.token });
     await User.findByIdAndUpdate(socket.handshake.auth.token, {
         $set: { is_online: true }
+    });
+
+    // Handle chat messages
+    socket.on('chatMessage', (msg) => {
+        usp.emit('chatMessage', msg);
     });
 
     socket.on('disconnect', async () => {
