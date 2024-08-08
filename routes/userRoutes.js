@@ -28,4 +28,6 @@ router.get('/logout',auth.isLogin, userController.logoutUser);
 
 router.get('/dashboard',auth.isLogin, userController.showDashboard);
 
+router.post('/message-save',auth.isLogin, userController.showMessageSave);
+
 module.exports = router;

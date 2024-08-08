@@ -1,5 +1,6 @@
 const { check, validationResult } = require('express-validator');
 const User = require('../models/userModel');
+const Chat = require('../models/chatModel');
 const bcrypt = require('bcrypt');
 const path = require('path');
 
@@ -22,7 +23,7 @@ exports.registerUser = async (req, res) => {
         });
 
         await newUser.save();
-        res.status(200).send('Registration successful');
+        res.redirect('/');
     } catch (err) {
         res.status(500).send('Server Error');
     }
@@ -76,6 +77,25 @@ exports.validateLogin = [
     check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long').trim().escape(),
 ]
 
-exports.showDashboard = (req, res) => {
-    res.render('dashboard', { user: req.session.user }); // Render your login form view
+exports.showDashboard = async (req, res) => {
+    // await User.findOne({ email: email })
+    try {
+        const users = await User.find({_id:{$nin:[req.session.user._id]}});
+        res.render('dashboard', {user: req.session.user ,users: users });
+    } catch (err) {
+        console.log(err);
+    }
+    // res.render('dashboard', {  }); // Render your login form view
 };
+exports.showMessageSave = async (req, res) => {
+    try {
+        add = new Chat;
+        add.message = req.body.message;
+        add.sender_id = req.body.sender_id;
+        add.receiver_id = req.body.received_id;
+        await add.save();
+        res.status(200).json({ status: 200, message: 'Message sent successfully', data: add });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+}
